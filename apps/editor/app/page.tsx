@@ -25,6 +25,7 @@ interface QuizQuestion {
 }
 
 export default function GameCraftEditor() {
+  const [jumlahSoal, setJumlahSoal] = useState<number>(10);
   const [themeMode, setThemeMode] = useState<ThemeMode>("dark");
   const [selectedPhaseRaw, setSelectedPhaseRaw] = useState(
     "Fase E/F (SMA/SMK Kelas 10-12)",
