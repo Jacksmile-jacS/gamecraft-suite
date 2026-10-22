@@ -26,9 +26,13 @@ interface QuizQuestion {
 
 export default function GameCraftEditor() {
   const [themeMode, setThemeMode] = useState<ThemeMode>("dark");
-  const [selectedPhaseRaw, setSelectedPhaseRaw] = useState("Fase E/F (SMA/SMK Kelas 10-12)");
-  const [subjectInput, setSubjectInput] = useState("Penerapan ilmu sosial di masyarakat");
-  
+  const [selectedPhaseRaw, setSelectedPhaseRaw] = useState(
+    "Fase E/F (SMA/SMK Kelas 10-12)",
+  );
+  const [subjectInput, setSubjectInput] = useState(
+    "Penerapan ilmu sosial di masyarakat",
+  );
+
   const [activeTemplate, setActiveTemplate] = useState<TemplateType>("logic");
   const [quizFormat, setQuizFormat] = useState<QuizFormatType>("mcq");
   const [questionCountSelect, setQuestionCountSelect] = useState<string>("5");
@@ -49,14 +53,17 @@ export default function GameCraftEditor() {
   const [studentInput, setStudentInput] = useState("");
   const [sortIndex, setSortIndex] = useState(0);
   const [quizIndex, setQuizIndex] = useState(0);
-  const [userCommands, setUserCommands] = useState<string[]>(["MAJU ➡️", "PUTAR KANAN ⤵️"]);
+  const [userCommands, setUserCommands] = useState<string[]>([
+    "MAJU ➡️",
+    "PUTAR KANAN ⤵️",
+  ]);
   const [playerPos, setPlayerPos] = useState({ r: 0, c: 0 });
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
 
   const totalDurationSeconds = useMemo(() => {
     if (isNoTimer) return 0;
-    return (timerMinutes * 60) + timerSecondsOnly;
+    return timerMinutes * 60 + timerSecondsOnly;
   }, [isNoTimer, timerMinutes, timerSecondsOnly]);
 
   const effectiveQuestionCount = useMemo(() => {
@@ -86,7 +93,7 @@ export default function GameCraftEditor() {
             `Menganalisis fenomena dan merumuskan solusi #${i + 1}`,
             "Menghafal istilah tanpa konteks nyata",
             "Mengambil kesimpulan tanpa pengujian data",
-            "Mengabaikan keterkaitan variabel masalah"
+            "Mengabaikan keterkaitan variabel masalah",
           ],
           answerIndex: 0,
         });
@@ -110,12 +117,17 @@ export default function GameCraftEditor() {
 
   const categoryData = useMemo(() => {
     const query = subjectInput.trim() || "Materi";
-    const categories = categoryCount === 2 
-      ? [`Konsep ${query}`, `Implementasi ${query}`]
-      : [`Prinsip Dasar`, `Kasus Nyata`, `Evaluasi`];
-    
+    const categories =
+      categoryCount === 2
+        ? [`Konsep ${query}`, `Implementasi ${query}`]
+        : [`Prinsip Dasar`, `Kasus Nyata`, `Evaluasi`];
+
     const items: CategoryItem[] = [
-      { id: "1", name: `Prinsip Teori ${query}`, targetCategory: categories[0] },
+      {
+        id: "1",
+        name: `Prinsip Teori ${query}`,
+        targetCategory: categories[0],
+      },
       { id: "2", name: `Studi Lapangan Kasus`, targetCategory: categories[1] },
       { id: "3", name: `Kajian Literatur`, targetCategory: categories[0] },
       { id: "4", name: `Aplikasi Warga`, targetCategory: categories[1] },
@@ -130,8 +142,10 @@ export default function GameCraftEditor() {
   const isDark = themeMode === "dark";
 
   const ui = {
-    bgApp: isDark ? "bg-[#090D16] text-slate-100" : "bg-slate-100 text-slate-800",
-    header: isDark 
+    bgApp: isDark
+      ? "bg-[#090D16] text-slate-100"
+      : "bg-slate-100 text-slate-800",
+    header: isDark
       ? "bg-[#0B1120] border-b border-cyan-500/30 shadow-[0_4px_15px_rgba(6,182,212,0.12)]"
       : "bg-white border-b border-slate-300 shadow-xs",
     panel: isDark
@@ -163,16 +177,19 @@ export default function GameCraftEditor() {
   }, [viewportMode]);
 
   return (
-    <div className={`flex h-screen w-screen flex-col font-sans overflow-hidden select-none ${ui.bgApp}`}>
-      
+    <div
+      className={`flex h-screen w-screen flex-col font-sans overflow-hidden select-none ${ui.bgApp}`}
+    >
       {/* HEADER UTAMA: SUBJUDUL HANYA SEKOLAHKITA BY JACS DEVELOPER */}
-      <header className={`flex h-13 min-h-[52px] items-center justify-between px-5 z-20 ${ui.header}`}>
+      <header
+        className={`flex h-13 min-h-[52px] items-center justify-between px-5 z-20 ${ui.header}`}
+      >
         <div className="flex min-w-0 items-center gap-3">
           <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl overflow-hidden shadow-[0_0_12px_rgba(255,122,0,0.5)] border border-orange-500/50 bg-[#090D16] p-0.5">
-            <img 
-              src="/Logo-JacS-Enterprise.png" 
-              alt="JacS Enterprise Logo" 
-              className="h-full w-full object-contain filter drop-shadow-[0_0_6px_rgba(255,122,0,0.7)]" 
+            <img
+              src="/Logo-JacS-Enterprise.png"
+              alt="JacS Enterprise Logo"
+              className="h-full w-full object-contain filter drop-shadow-[0_0_6px_rgba(255,122,0,0.7)]"
             />
             <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-cyan-500 text-[7px] font-bold text-black">
               AI
@@ -181,7 +198,9 @@ export default function GameCraftEditor() {
 
           <div className="min-w-0 flex flex-col justify-center">
             <div className="flex items-center gap-2">
-              <h1 className={`text-sm font-bold tracking-tight whitespace-nowrap ${ui.title}`}>
+              <h1
+                className={`text-sm font-bold tracking-tight whitespace-nowrap ${ui.title}`}
+              >
                 GameCraft Studio
               </h1>
               <span className="rounded-full bg-orange-500/10 border border-orange-500/40 px-2 py-0.2 text-[9px] font-bold text-[#FF7A00] whitespace-nowrap">
@@ -200,7 +219,7 @@ export default function GameCraftEditor() {
             type="button"
             onClick={() => setThemeMode(isDark ? "light" : "dark")}
             className={`flex items-center gap-1 rounded-xl border px-2.5 py-1 text-xs font-semibold transition cursor-pointer ${
-              isDark 
+              isDark
                 ? "bg-[#10192E] border-cyan-500/40 text-cyan-300 hover:bg-cyan-950/40"
                 : "bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100"
             }`}
@@ -211,7 +230,9 @@ export default function GameCraftEditor() {
           <button
             type="button"
             className={`rounded-xl border px-3 py-1 text-xs font-semibold transition cursor-pointer ${
-              isDark ? "bg-[#10192E] border-blue-500/40 text-slate-200" : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
+              isDark
+                ? "bg-[#10192E] border-blue-500/40 text-slate-200"
+                : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
             }`}
           >
             Pratinjau
@@ -228,12 +249,15 @@ export default function GameCraftEditor() {
 
       {/* DASHBOARD AREA: BEBAS SCROLL VERTIKAL */}
       <div className="flex flex-1 overflow-hidden p-2.5 gap-2.5">
-        
         {/* PANEL KIRI: KONFIGURASI MODUL */}
-        <aside className={`w-[290px] shrink-0 rounded-xl p-3 flex flex-col justify-between overflow-y-auto ${ui.panel}`}>
+        <aside
+          className={`w-[290px] shrink-0 rounded-xl p-3 flex flex-col justify-between overflow-y-auto ${ui.panel}`}
+        >
           <div className="space-y-2.5">
             <div>
-              <h2 className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}>
+              <h2
+                className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}
+              >
                 1. Identitas Pembelajaran
               </h2>
               <div className="mt-1 space-y-1.5">
@@ -242,10 +266,18 @@ export default function GameCraftEditor() {
                   onChange={(e) => setSelectedPhaseRaw(e.target.value)}
                   className={`w-full rounded-lg p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                 >
-                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>Fase A (SD Kelas 1-2)</option>
-                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>Fase B/C (SD Kelas 3-6)</option>
-                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>Fase D (SMP Kelas 7-9)</option>
-                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>Fase E/F (SMA/SMK Kelas 10-12)</option>
+                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>
+                    Fase A (SD Kelas 1-2)
+                  </option>
+                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>
+                    Fase B/C (SD Kelas 3-6)
+                  </option>
+                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>
+                    Fase D (SMP Kelas 7-9)
+                  </option>
+                  <option className={isDark ? "bg-[#090D16] text-white" : ""}>
+                    Fase E/F (SMA/SMK Kelas 10-12)
+                  </option>
                 </select>
 
                 <input
@@ -260,82 +292,155 @@ export default function GameCraftEditor() {
 
             <div>
               <div className="flex items-center justify-between">
-                <h2 className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}>
+                <h2
+                  className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}
+                >
                   2. Pilihan Template
                 </h2>
                 <span className="text-[9px] font-semibold text-[#FF7A00] bg-orange-500/10 border border-orange-500/40 px-1.5 py-0.2 rounded">
                   {activeTemplate.toUpperCase()}
                 </span>
               </div>
-              
+
               <div className="mt-1 grid grid-cols-2 gap-1.5">
-                {( ["quiz", "category", "logic", "maze"] as TemplateType[]).map((tmpl) => (
-                  <button
-                    key={tmpl}
-                    type="button"
-                    onClick={() => {
-                      setActiveTemplate(tmpl);
-                      setFeedback(null);
-                    }}
-                    className={`rounded-lg border p-1.5 text-center text-[11px] uppercase transition cursor-pointer font-medium ${
-                      activeTemplate === tmpl
-                        ? "border-[#FF7A00] bg-[#FF7A00] text-white shadow-xs"
-                        : isDark
-                        ? "border-slate-800 bg-[#0B1222] text-slate-300 hover:border-blue-500/50"
-                        : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    {tmpl === "quiz" ? "🎯 Quiz" : tmpl === "category" ? "🗂️ Sort" : tmpl === "logic" ? "🧩 Logic" : "🧭 Maze"}
-                  </button>
-                ))}
+                {(["quiz", "category", "logic", "maze"] as TemplateType[]).map(
+                  (tmpl) => (
+                    <button
+                      key={tmpl}
+                      type="button"
+                      onClick={() => {
+                        setActiveTemplate(tmpl);
+                        setFeedback(null);
+                      }}
+                      className={`rounded-lg border p-1.5 text-center text-[11px] uppercase transition cursor-pointer font-medium ${
+                        activeTemplate === tmpl
+                          ? "border-[#FF7A00] bg-[#FF7A00] text-white shadow-xs"
+                          : isDark
+                            ? "border-slate-800 bg-[#0B1222] text-slate-300 hover:border-blue-500/50"
+                            : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      {tmpl === "quiz"
+                        ? "🎯 Quiz"
+                        : tmpl === "category"
+                          ? "🗂️ Sort"
+                          : tmpl === "logic"
+                            ? "🧩 Logic"
+                            : "🧭 Maze"}
+                    </button>
+                  ),
+                )}
               </div>
             </div>
 
             <div>
-              <h2 className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}>
+              <h2
+                className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}
+              >
                 3. Konfigurasi Modul
               </h2>
 
               {activeTemplate === "logic" && (
                 <div className={`mt-1 rounded-lg p-2 ${ui.panelAccent}`}>
-                  <label className={`text-[10px] font-medium block ${ui.title}`}>Maksimal Blok Instruksi</label>
+                  <label
+                    className={`text-[10px] font-medium block ${ui.title}`}
+                  >
+                    Maksimal Blok Instruksi
+                  </label>
                   <select
                     value={maxBlocks}
                     onChange={(e) => setMaxBlocks(Number(e.target.value))}
                     className={`mt-1 w-full rounded-md p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                   >
-                    <option className={isDark ? "bg-[#090D16] text-white" : ""} value={4}>Maksimal 4 Blok</option>
-                    <option className={isDark ? "bg-[#090D16] text-white" : ""} value={6}>Maksimal 6 Blok</option>
-                    <option className={isDark ? "bg-[#090D16] text-white" : ""} value={10}>Maksimal 10 Blok</option>
+                    <option
+                      className={isDark ? "bg-[#090D16] text-white" : ""}
+                      value={4}
+                    >
+                      Maksimal 4 Blok
+                    </option>
+                    <option
+                      className={isDark ? "bg-[#090D16] text-white" : ""}
+                      value={6}
+                    >
+                      Maksimal 6 Blok
+                    </option>
+                    <option
+                      className={isDark ? "bg-[#090D16] text-white" : ""}
+                      value={10}
+                    >
+                      Maksimal 10 Blok
+                    </option>
                   </select>
                 </div>
               )}
 
               {activeTemplate === "quiz" && (
-                <div className={`mt-1 rounded-lg p-2 space-y-1.5 ${ui.panelAccent}`}>
+                <div
+                  className={`mt-1 rounded-lg p-2 space-y-1.5 ${ui.panelAccent}`}
+                >
                   <div className="grid grid-cols-2 gap-1.5">
                     <div>
-                      <label className={`text-[10px] font-medium block ${ui.title}`}>Format</label>
+                      <label
+                        className={`text-[10px] font-medium block ${ui.title}`}
+                      >
+                        Format
+                      </label>
                       <select
                         value={quizFormat}
-                        onChange={(e) => setQuizFormat(e.target.value as QuizFormatType)}
+                        onChange={(e) =>
+                          setQuizFormat(e.target.value as QuizFormatType)
+                        }
                         className={`mt-0.5 w-full rounded-md p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                       >
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value="mcq">Pilgan</option>
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value="short">Isian</option>
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value="essay">Essai</option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value="mcq"
+                        >
+                          Pilgan
+                        </option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value="short"
+                        >
+                          Isian
+                        </option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value="essay"
+                        >
+                          Essai
+                        </option>
                       </select>
                     </div>
                     <div>
-                      <label className={`text-[10px] font-medium block ${ui.title}`}>Jumlah</label>
+                      <label
+                        className={`text-[10px] font-medium block ${ui.title}`}
+                      >
+                        Jumlah
+                      </label>
                       <select
                         value={questionCountSelect}
                         onChange={(e) => setQuestionCountSelect(e.target.value)}
                         className={`mt-0.5 w-full rounded-md p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                       >
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value="3">3 Soal</option>
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value="5">5 Soal</option>
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value="10">10 Soal</option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value="3"
+                        >
+                          3 Soal
+                        </option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value="5"
+                        >
+                          5 Soal
+                        </option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value="10"
+                        >
+                          10 Soal
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -343,28 +448,60 @@ export default function GameCraftEditor() {
               )}
 
               {activeTemplate === "category" && (
-                <div className={`mt-1 rounded-lg p-2 space-y-1.5 ${ui.panelAccent}`}>
+                <div
+                  className={`mt-1 rounded-lg p-2 space-y-1.5 ${ui.panelAccent}`}
+                >
                   <div className="grid grid-cols-2 gap-1.5">
                     <div>
-                      <label className={`text-[10px] font-medium block ${ui.title}`}>Wadah</label>
+                      <label
+                        className={`text-[10px] font-medium block ${ui.title}`}
+                      >
+                        Wadah
+                      </label>
                       <select
                         value={categoryCount}
-                        onChange={(e) => setCategoryCount(Number(e.target.value))}
+                        onChange={(e) =>
+                          setCategoryCount(Number(e.target.value))
+                        }
                         className={`mt-0.5 w-full rounded-md p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                       >
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value={2}>2 Wadah</option>
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value={3}>3 Wadah</option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value={2}
+                        >
+                          2 Wadah
+                        </option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value={3}
+                        >
+                          3 Wadah
+                        </option>
                       </select>
                     </div>
                     <div>
-                      <label className={`text-[10px] font-medium block ${ui.title}`}>Item</label>
+                      <label
+                        className={`text-[10px] font-medium block ${ui.title}`}
+                      >
+                        Item
+                      </label>
                       <select
                         value={itemCount}
                         onChange={(e) => setItemCount(Number(e.target.value))}
                         className={`mt-0.5 w-full rounded-md p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                       >
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value={4}>4 Objek</option>
-                        <option className={isDark ? "bg-[#090D16] text-white" : ""} value={6}>6 Objek</option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value={4}
+                        >
+                          4 Objek
+                        </option>
+                        <option
+                          className={isDark ? "bg-[#090D16] text-white" : ""}
+                          value={6}
+                        >
+                          6 Objek
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -373,65 +510,123 @@ export default function GameCraftEditor() {
 
               {activeTemplate === "maze" && (
                 <div className={`mt-1 rounded-lg p-2 ${ui.panelAccent}`}>
-                  <label className={`text-[10px] font-medium block ${ui.title}`}>Ukuran Labirin</label>
+                  <label
+                    className={`text-[10px] font-medium block ${ui.title}`}
+                  >
+                    Ukuran Labirin
+                  </label>
                   <select
                     value={gridSize}
                     onChange={(e) => setGridSize(Number(e.target.value))}
                     className={`mt-1 w-full rounded-md p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                   >
-                    <option className={isDark ? "bg-[#090D16] text-white" : ""} value={3}>3 x 3 Grid</option>
-                    <option className={isDark ? "bg-[#090D16] text-white" : ""} value={4}>4 x 4 Grid</option>
+                    <option
+                      className={isDark ? "bg-[#090D16] text-white" : ""}
+                      value={3}
+                    >
+                      3 x 3 Grid
+                    </option>
+                    <option
+                      className={isDark ? "bg-[#090D16] text-white" : ""}
+                      value={4}
+                    >
+                      4 x 4 Grid
+                    </option>
                   </select>
                 </div>
               )}
             </div>
 
             <div>
-              <h2 className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}>
+              <h2
+                className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}
+              >
                 4. Parameter Gameplay
               </h2>
               <div className="mt-1 space-y-1.5">
                 <select
                   value={difficulty}
-                  onChange={(e) => setDifficulty(e.target.value as DifficultyType)}
+                  onChange={(e) =>
+                    setDifficulty(e.target.value as DifficultyType)
+                  }
                   className={`w-full rounded-lg p-1.5 text-[11px] font-normal outline-none cursor-pointer ${ui.input}`}
                 >
-                  <option className={isDark ? "bg-[#090D16] text-white" : ""} value="Mudah">Mudah (LOTS)</option>
-                  <option className={isDark ? "bg-[#090D16] text-white" : ""} value="Sedang">Sedang (MOTS)</option>
-                  <option className={isDark ? "bg-[#090D16] text-white" : ""} value="HOTS">HOTS (Analisis)</option>
+                  <option
+                    className={isDark ? "bg-[#090D16] text-white" : ""}
+                    value="Mudah"
+                  >
+                    Mudah (LOTS)
+                  </option>
+                  <option
+                    className={isDark ? "bg-[#090D16] text-white" : ""}
+                    value="Sedang"
+                  >
+                    Sedang (MOTS)
+                  </option>
+                  <option
+                    className={isDark ? "bg-[#090D16] text-white" : ""}
+                    value="HOTS"
+                  >
+                    HOTS (Analisis)
+                  </option>
                 </select>
 
-                <div className={`rounded-lg p-2 space-y-1.5 border ${isDark ? "bg-[#0B1222] border-blue-500/20" : "bg-slate-50 border-slate-300"}`}>
+                <div
+                  className={`rounded-lg p-2 space-y-1.5 border ${isDark ? "bg-[#0B1222] border-blue-500/20" : "bg-slate-50 border-slate-300"}`}
+                >
                   <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-medium ${ui.title}`}>Batas Waktu</span>
+                    <span className={`text-[10px] font-medium ${ui.title}`}>
+                      Batas Waktu
+                    </span>
                     <span className="text-[9px] font-bold text-[#FF7A00]">
-                      {isNoTimer ? "Bebas" : `${timerMinutes}m ${timerSecondsOnly}s`}
+                      {isNoTimer
+                        ? "Bebas"
+                        : `${timerMinutes}m ${timerSecondsOnly}s`}
                     </span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-1.5">
-                    <div className={`flex items-center rounded-md px-1.5 py-1 ${ui.input}`}>
+                    <div
+                      className={`flex items-center rounded-md px-1.5 py-1 ${ui.input}`}
+                    >
                       <input
                         type="number"
                         min="0"
                         max="60"
                         value={timerMinutes}
-                        onChange={(e) => setTimerMinutes(Math.max(0, parseInt(e.target.value) || 0))}
+                        onChange={(e) =>
+                          setTimerMinutes(
+                            Math.max(0, parseInt(e.target.value) || 0),
+                          )
+                        }
                         className="w-full text-[11px] font-normal outline-none text-center bg-transparent"
                       />
-                      <span className="text-[9px] font-medium opacity-60">mnt</span>
+                      <span className="text-[9px] font-medium opacity-60">
+                        mnt
+                      </span>
                     </div>
 
-                    <div className={`flex items-center rounded-md px-1.5 py-1 ${ui.input}`}>
+                    <div
+                      className={`flex items-center rounded-md px-1.5 py-1 ${ui.input}`}
+                    >
                       <input
                         type="number"
                         min="0"
                         max="59"
                         value={timerSecondsOnly}
-                        onChange={(e) => setTimerSecondsOnly(Math.max(0, Math.min(59, parseInt(e.target.value) || 0)))}
+                        onChange={(e) =>
+                          setTimerSecondsOnly(
+                            Math.max(
+                              0,
+                              Math.min(59, parseInt(e.target.value) || 0),
+                            ),
+                          )
+                        }
                         className="w-full text-[11px] font-normal outline-none text-center bg-transparent"
                       />
-                      <span className="text-[9px] font-medium opacity-60">dtk</span>
+                      <span className="text-[9px] font-medium opacity-60">
+                        dtk
+                      </span>
                     </div>
                   </div>
 
@@ -450,7 +645,9 @@ export default function GameCraftEditor() {
                           setTimerSecondsOnly(p.s);
                         }}
                         className={`flex-1 rounded py-0.5 text-[9px] font-medium border transition cursor-pointer ${
-                          isDark ? "border-slate-800 bg-[#10192E] text-slate-300" : "border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
+                          isDark
+                            ? "border-slate-800 bg-[#10192E] text-slate-300"
+                            : "border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
                         }`}
                       >
                         {p.label}
@@ -464,7 +661,9 @@ export default function GameCraftEditor() {
         </aside>
 
         {/* PANEL TENGAH: EDITOR DENGAN PALET SEDERHANA, TANPA BOLD, WARNA RAMAH MATA */}
-        <main className={`flex-1 rounded-xl p-4 flex flex-col justify-between overflow-hidden border ${isDark ? "border-cyan-500/30 bg-[#0B1120]" : "border-slate-300 bg-white shadow-xs"}`}>
+        <main
+          className={`flex-1 rounded-xl p-4 flex flex-col justify-between overflow-hidden border ${isDark ? "border-cyan-500/30 bg-[#0B1120]" : "border-slate-300 bg-white shadow-xs"}`}
+        >
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-blue-500/20">
             <div>
               <h2 className={`text-base font-bold tracking-tight ${ui.title}`}>
@@ -474,35 +673,55 @@ export default function GameCraftEditor() {
                 Kanvas Perancangan & Skenario Interaktif Pembelajaran
               </p>
             </div>
-            
-            <div className={`flex items-center gap-1 p-0.5 rounded-lg border ${isDark ? "bg-[#090D16] border-blue-500/30" : "bg-slate-100 border-slate-300"}`}>
-              <span className={`text-[9px] font-semibold px-1.5 ${ui.textMuted}`}>Rasio:</span>
-              {( ["mobile", "tablet", "desktop"] as ViewportMode[]).map((mode) => (
-                <button
-                  key={mode}
-                  type="button"
-                  onClick={() => setViewportMode(mode)}
-                  className={`rounded px-2 py-0.5 text-[10px] font-semibold capitalize transition cursor-pointer ${
-                    viewportMode === mode
-                      ? isDark ? "bg-cyan-500 text-black shadow-xs" : "bg-blue-600 text-white shadow-xs"
-                      : ui.textMuted
-                  }`}
-                >
-                  {mode}
-                </button>
-              ))}
+
+            <div
+              className={`flex items-center gap-1 p-0.5 rounded-lg border ${isDark ? "bg-[#090D16] border-blue-500/30" : "bg-slate-100 border-slate-300"}`}
+            >
+              <span
+                className={`text-[9px] font-semibold px-1.5 ${ui.textMuted}`}
+              >
+                Rasio:
+              </span>
+              {(["mobile", "tablet", "desktop"] as ViewportMode[]).map(
+                (mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setViewportMode(mode)}
+                    className={`rounded px-2 py-0.5 text-[10px] font-semibold capitalize transition cursor-pointer ${
+                      viewportMode === mode
+                        ? isDark
+                          ? "bg-cyan-500 text-black shadow-xs"
+                          : "bg-blue-600 text-white shadow-xs"
+                        : ui.textMuted
+                    }`}
+                  >
+                    {mode}
+                  </button>
+                ),
+              )}
             </div>
           </div>
 
           {/* PALET BLOK: FONT SEDERHANA, TANPA BOLD, WARNA BERSIH & JELAS */}
           {activeTemplate === "logic" && (
             <div className="my-auto flex flex-col gap-3 py-1">
-              <div className={`rounded-xl p-3 border ${isDark ? "bg-[#10192E] border-slate-800" : "bg-slate-50 border-slate-200"}`}>
-                <h3 className={`text-xs font-semibold uppercase tracking-wider mb-2 ${ui.title}`}>
+              <div
+                className={`rounded-xl p-3 border ${isDark ? "bg-[#10192E] border-slate-800" : "bg-slate-50 border-slate-200"}`}
+              >
+                <h3
+                  className={`text-xs font-semibold uppercase tracking-wider mb-2 ${ui.title}`}
+                >
                   Palet Blok Instruksi
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {["MAJU ➡️", "PUTAR KANAN ⤵️", "PUTAR KIRI ⤴️", "LOMPAT 🦘", "EKSEKUSI ⚙️"].map((cmd) => (
+                  {[
+                    "MAJU ➡️",
+                    "PUTAR KANAN ⤵️",
+                    "PUTAR KIRI ⤴️",
+                    "LOMPAT 🦘",
+                    "EKSEKUSI ⚙️",
+                  ].map((cmd) => (
                     <button
                       key={cmd}
                       type="button"
@@ -512,8 +731,8 @@ export default function GameCraftEditor() {
                         }
                       }}
                       className={`rounded-lg border px-3 py-1.5 text-xs font-normal transition cursor-pointer shadow-xs active:scale-95 ${
-                        isDark 
-                          ? "border-slate-700 bg-[#0E1626] text-slate-200 hover:border-cyan-500/50 hover:bg-[#142038]" 
+                        isDark
+                          ? "border-slate-700 bg-[#0E1626] text-slate-200 hover:border-cyan-500/50 hover:bg-[#142038]"
                           : "border-slate-300 bg-white text-slate-800 hover:bg-slate-100 hover:border-slate-400"
                       }`}
                     >
@@ -524,25 +743,42 @@ export default function GameCraftEditor() {
               </div>
 
               {/* URUTAN EKSEKUSI */}
-              <div className={`rounded-xl p-3 border ${isDark ? "bg-[#10192E] border-slate-800" : "bg-slate-50 border-slate-200"}`}>
+              <div
+                className={`rounded-xl p-3 border ${isDark ? "bg-[#10192E] border-slate-800" : "bg-slate-50 border-slate-200"}`}
+              >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className={`text-xs font-semibold uppercase tracking-wider ${ui.title}`}>
+                  <h3
+                    className={`text-xs font-semibold uppercase tracking-wider ${ui.title}`}
+                  >
                     Urutan Eksekusi Runtunan
                   </h3>
-                  <span className={`text-[10px] font-medium px-2 py-0.5 rounded-md border ${
-                    isDark ? "bg-[#090D16] border-slate-700 text-slate-300" : "bg-white border-slate-300 text-slate-700"
-                  }`}>
+                  <span
+                    className={`text-[10px] font-medium px-2 py-0.5 rounded-md border ${
+                      isDark
+                        ? "bg-[#090D16] border-slate-700 text-slate-300"
+                        : "bg-white border-slate-300 text-slate-700"
+                    }`}
+                  >
                     {userCommands.length} / {maxBlocks} Blok
                   </span>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-2">
                   {userCommands.map((cmd, i) => (
-                    <div key={i} className={`flex items-center justify-between rounded-lg p-2 border ${isDark ? "bg-[#090D16] border-slate-700" : "bg-white border-slate-300"}`}>
-                      <span className={`text-xs font-normal ${ui.title}`}>{i + 1}. {cmd}</span>
+                    <div
+                      key={i}
+                      className={`flex items-center justify-between rounded-lg p-2 border ${isDark ? "bg-[#090D16] border-slate-700" : "bg-white border-slate-300"}`}
+                    >
+                      <span className={`text-xs font-normal ${ui.title}`}>
+                        {i + 1}. {cmd}
+                      </span>
                       <button
                         type="button"
-                        onClick={() => setUserCommands(userCommands.filter((_, idx) => idx !== i))}
+                        onClick={() =>
+                          setUserCommands(
+                            userCommands.filter((_, idx) => idx !== i),
+                          )
+                        }
                         className="text-xs text-rose-600 hover:text-rose-700 cursor-pointer pl-2 font-medium"
                       >
                         ✕
@@ -559,9 +795,13 @@ export default function GameCraftEditor() {
               {quizList.slice(0, 3).map((q, idx) => (
                 <div key={idx} className={`rounded-lg p-2.5 border ${ui.card}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-medium text-[#FF7A00]">Soal #{idx + 1} ({q.format.toUpperCase()})</span>
+                    <span className="text-[10px] font-medium text-[#FF7A00]">
+                      Soal #{idx + 1} ({q.format.toUpperCase()})
+                    </span>
                   </div>
-                  <p className={`text-xs font-normal mt-1 ${ui.title}`}>{q.question}</p>
+                  <p className={`text-xs font-normal mt-1 ${ui.title}`}>
+                    {q.question}
+                  </p>
                 </div>
               ))}
             </div>
@@ -571,9 +811,16 @@ export default function GameCraftEditor() {
             <div className="my-auto space-y-2 py-1">
               <div className="flex gap-2">
                 {categoryData.categories.map((cat, idx) => (
-                  <div key={cat} className={`flex-1 rounded-lg p-2.5 text-center border ${isDark ? "bg-[#090D16] border-cyan-500/40" : "bg-white border-slate-300"}`}>
-                    <span className="text-[9px] font-medium text-blue-600 dark:text-cyan-400">Wadah #{idx + 1}</span>
-                    <p className={`text-xs font-normal mt-0.5 ${ui.title}`}>{cat}</p>
+                  <div
+                    key={cat}
+                    className={`flex-1 rounded-lg p-2.5 text-center border ${isDark ? "bg-[#090D16] border-cyan-500/40" : "bg-white border-slate-300"}`}
+                  >
+                    <span className="text-[9px] font-medium text-blue-600 dark:text-cyan-400">
+                      Wadah #{idx + 1}
+                    </span>
+                    <p className={`text-xs font-normal mt-0.5 ${ui.title}`}>
+                      {cat}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -583,7 +830,9 @@ export default function GameCraftEditor() {
           {activeTemplate === "maze" && (
             <div className="my-auto p-4 text-center">
               <span className="text-3xl">🧭</span>
-              <p className={`text-xs font-normal mt-1 ${ui.title}`}>Labirin {gridSize}x{gridSize} Aktif</p>
+              <p className={`text-xs font-normal mt-1 ${ui.title}`}>
+                Labirin {gridSize}x{gridSize} Aktif
+              </p>
             </div>
           )}
 
@@ -594,15 +843,20 @@ export default function GameCraftEditor() {
         </main>
 
         {/* PANEL KANAN: LIVE PREVIEW SISWA */}
-        <aside className={`w-[310px] shrink-0 rounded-xl p-3 flex flex-col justify-between items-center ${ui.panel}`}>
+        <aside
+          className={`w-[310px] shrink-0 rounded-xl p-3 flex flex-col justify-between items-center ${ui.panel}`}
+        >
           <div className="flex w-full items-center justify-between pb-2 border-b border-slate-200 dark:border-blue-500/20">
-            <h2 className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}>
+            <h2
+              className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? "text-cyan-400" : "text-slate-700"}`}
+            >
               Live Preview Siswa
             </h2>
             <div className="flex items-center gap-1.5">
               {!isNoTimer && (
                 <span className="rounded-full bg-rose-500/10 border border-rose-500/40 px-2 py-0.2 text-[9px] font-medium text-rose-600 dark:text-rose-400">
-                  ⏱️ {timerMinutes > 0 ? `${timerMinutes}m ` : ""}{timerSecondsOnly}s
+                  ⏱️ {timerMinutes > 0 ? `${timerMinutes}m ` : ""}
+                  {timerSecondsOnly}s
                 </span>
               )}
               <span className="rounded-full bg-orange-500/10 border border-orange-500/40 px-2 py-0.2 text-[9px] font-medium text-[#FF7A00]">
@@ -614,8 +868,8 @@ export default function GameCraftEditor() {
           <div className="flex w-full flex-1 items-center justify-center p-1">
             <div
               className={`flex flex-col justify-between rounded-2xl border-4 p-3 shadow-md transition-all duration-300 ${viewportStyles} ${
-                isDark 
-                  ? "bg-[#070B14] border-cyan-500/50 text-slate-100" 
+                isDark
+                  ? "bg-[#070B14] border-cyan-500/50 text-slate-100"
                   : "bg-slate-900 border-slate-700 text-white"
               }`}
             >
@@ -628,13 +882,15 @@ export default function GameCraftEditor() {
                     {currentPhaseKey}
                   </span>
                 </div>
-                
+
                 <h3 className="text-[11px] font-semibold truncate text-white mt-0.5">
                   {subjectInput || "Modul Interaktif"}
                 </h3>
-                
+
                 <div className="flex items-center justify-between text-[9px] font-normal opacity-80 mt-0.5">
-                  <span className="text-[#FF7A00] font-medium">SKOR: {score}</span>
+                  <span className="text-[#FF7A00] font-medium">
+                    SKOR: {score}
+                  </span>
                   <span>{userCommands.length} Instruksi</span>
                 </div>
               </div>
@@ -643,10 +899,15 @@ export default function GameCraftEditor() {
                 {activeTemplate === "logic" && (
                   <div className="space-y-2">
                     <div className="text-3xl">🤖</div>
-                    <p className="text-[11px] font-medium text-white">Rangkaian Algoritma</p>
+                    <p className="text-[11px] font-medium text-white">
+                      Rangkaian Algoritma
+                    </p>
                     <div className="flex flex-wrap justify-center gap-1 max-w-[200px] mx-auto">
                       {userCommands.map((c, i) => (
-                        <span key={i} className="rounded bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 text-[8px] font-normal border border-emerald-500/40">
+                        <span
+                          key={i}
+                          className="rounded bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 text-[8px] font-normal border border-emerald-500/40"
+                        >
                           {c}
                         </span>
                       ))}
