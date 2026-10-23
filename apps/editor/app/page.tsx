@@ -35,18 +35,6 @@ export default function GameCraftEditor() {
       "Memaksakan kehendak satu kelompok kepada kelompok lainnya",
       "Menutup akses komunikasi antar perwakilan warga",
       "Menghindari evaluasi bersama terhadap program masyarakat"
-    ],
-    4: [
-      "Mengembangkan program pemberdayaan berbasis potensi kearifan lokal",
-      "Menyeragamkan seluruh tradisi tanpa mempertimbangkan nilai historis",
-      "Menutup kolaborasi antara institusi pendidikan dan masyarakat",
-      "Menghindari penggunaan data empiris dalam perumusan kebijakan"
-    ],
-    5: [
-      "Mengevaluasi efektivitas mediasi sosial dalam resolusi sengketa",
-      "Menolak peran tokoh masyarakat dalam rekonsiliasi bersama",
-      "Mengalihkan fokus penyelesaian masalah ke ranah spekulatif",
-      "Mengisolasi kelompok rentan dari proses pengambilan keputusan"
     ]
   };
 
